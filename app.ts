@@ -1,7 +1,8 @@
+import 'colors'
+import cors from 'cors'
 import express from 'express'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
-import 'colors'
 import postRouter from './app/post/post.routes'
 import { prisma } from './app/prisma'
 import { errorHandler, notFound } from './app/middleware/error.middleware'
@@ -13,6 +14,7 @@ const app = express()
 async function main() {
 	if (process.env.NODE_ENV === 'development') app.use(morgan('dev'))
 
+	app.use(cors())
 	app.use(express.json())
 
 	app.use('/api/post', postRouter)
