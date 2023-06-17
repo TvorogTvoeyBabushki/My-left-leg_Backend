@@ -6,8 +6,6 @@ import morgan from 'morgan'
 import postRouter from './app/post/post.routes'
 import { prisma } from './app/prisma'
 import { errorHandler, notFound } from './app/middleware/error.middleware'
-import fileUpLoad from 'express-fileupload'
-import mv from 'mv'
 
 dotenv.config()
 
@@ -15,17 +13,8 @@ const app = express()
 
 app.use(cors())
 
-// app.post('/post', (req, res) => {
-// 	const fileName = req.files.myFile
-// 	const path = __dirname + '/images' + fileName.name
-
-// 	req.files.myFile.mv(path, err => {})
-// })
-
 async function main() {
 	if (process.env.NODE_ENV === 'development') app.use(morgan('dev'))
-
-	app.use(fileUpLoad())
 
 	app.use(express.json())
 

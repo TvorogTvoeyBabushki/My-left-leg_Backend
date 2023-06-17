@@ -1,4 +1,4 @@
-import { Response } from 'express'
+import { Request, Response } from 'express'
 import { prisma } from '../prisma'
 import { postFields } from '../utils/post.utils'
 import AsyncHandler from 'express-async-handler'
@@ -45,7 +45,7 @@ export const getPosts = AsyncHandler(
 )
 
 export const createNewPost = AsyncHandler(
-	async (req: IPostRequest, res: Response) => {
+	async (req: Request, res: Response) => {
 		const { title, description, img } = req.body
 
 		const post = await prisma.post.create({
