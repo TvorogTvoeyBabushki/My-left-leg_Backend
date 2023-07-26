@@ -6,6 +6,7 @@ CREATE TABLE "Post" (
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "img" TEXT[],
+    "categorysIds" TEXT[],
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
 );

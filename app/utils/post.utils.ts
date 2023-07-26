@@ -3,6 +3,7 @@ export const postFields = {
 	title: true,
 	description: true,
 	img: true,
+	categorysIds: true,
 	createdAt: true,
 	updatedAt: true
 }

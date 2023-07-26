@@ -8,6 +8,7 @@ interface IPostRequest {
 		title: string
 		description: string
 		img: string
+		categorysIds: string[]
 	}
 	params?: {
 		id: string
@@ -46,13 +47,14 @@ export const getPosts = AsyncHandler(
 
 export const createNewPost = AsyncHandler(
 	async (req: Request, res: Response) => {
-		const { title, description, img } = req.body
+		const { title, description, img, categorysIds } = req.body
 
 		const post = await prisma.post.create({
 			data: {
 				title,
 				description,
-				img
+				img,
+				categorysIds
 			},
 			select: postFields // ???
 		})
@@ -63,7 +65,7 @@ export const createNewPost = AsyncHandler(
 
 export const updatePost = AsyncHandler(
 	async (req: IPostRequest, res: Response) => {
-		const { title, description, img } = req.body
+		const { title, description, img, categorysIds } = req.body
 		const postId = req.params.id
 
 		try {
@@ -74,7 +76,8 @@ export const updatePost = AsyncHandler(
 				data: {
 					title,
 					description,
-					img
+					img,
+					categorysIds
 				}
 			})
 
