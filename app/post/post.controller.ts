@@ -84,7 +84,7 @@ export const updatePost = AsyncHandler(async (req: Request, res: Response) => {
 				description,
 				img,
 				categorysIds,
-				postContent: [postContent]
+				postContent
 			}
 		})
 
