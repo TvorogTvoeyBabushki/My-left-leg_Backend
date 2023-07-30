@@ -7,6 +7,7 @@ CREATE TABLE "Post" (
     "description" TEXT NOT NULL,
     "img" TEXT[],
     "categorysIds" TEXT[],
+    "postContent" JSONB[],
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
 );

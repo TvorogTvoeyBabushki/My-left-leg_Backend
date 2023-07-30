@@ -3,12 +3,18 @@ import { prisma } from '../prisma'
 import { postFields } from '../utils/post.utils'
 import AsyncHandler from 'express-async-handler'
 
+interface IPostContent {
+	heading: string
+	mainText: string
+}
+
 interface IPostRequest {
 	body: {
 		title: string
 		description: string
 		img: string
 		categorysIds: string[]
+		postContent: IPostContent[]
 	}
 	params?: {
 		id: string
@@ -54,7 +60,8 @@ export const createNewPost = AsyncHandler(
 				title,
 				description,
 				img,
-				categorysIds
+				categorysIds,
+				postContent: []
 			},
 			select: postFields // ???
 		})
@@ -63,31 +70,30 @@ export const createNewPost = AsyncHandler(
 	}
 )
 
-export const updatePost = AsyncHandler(
-	async (req: IPostRequest, res: Response) => {
-		const { title, description, img, categorysIds } = req.body
-		const postId = req.params.id
+export const updatePost = AsyncHandler(async (req: Request, res: Response) => {
+	const { title, description, img, categorysIds, postContent } = req.body
+	const postId = req.params.id
 
-		try {
-			const post = await prisma.post.update({
-				where: {
-					id: +postId
-				},
-				data: {
-					title,
-					description,
-					img,
-					categorysIds
-				}
-			})
+	try {
+		const post = await prisma.post.update({
+			where: {
+				id: +postId
+			},
+			data: {
+				title,
+				description,
+				img,
+				categorysIds,
+				postContent: [postContent]
+			}
+		})
 
-			res.json(post)
-		} catch (error) {
-			res.status(404)
-			throw new Error('No post found!')
-		}
+		res.json(post)
+	} catch (error) {
+		res.status(404)
+		throw new Error('No post found!')
 	}
-)
+})
 
 export const deletePost = AsyncHandler(
 	async (req: IPostRequest, res: Response) => {

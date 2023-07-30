@@ -19,4 +19,5 @@ model Post {
   description  String
   img          String[]
   categorysIds String[]
+  postContent  Json[]
 }
