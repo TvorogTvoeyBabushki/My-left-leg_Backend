@@ -11,7 +11,7 @@ export const authAdmin = AsyncHandler(async (req, res) => {
 		}
 	})
 
-	const isValidPassword = await verify(admin.password, password)
+	const isValidPassword = admin ? await verify(admin.password, password) : null
 
 	if (admin && isValidPassword) {
 		res.json(admin)
