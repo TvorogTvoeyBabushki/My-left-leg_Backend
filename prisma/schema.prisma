@@ -21,3 +21,13 @@ model Post {
   categorysIds String[]
   postContent  Json[]
 }
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  email    String @unique
+  name     String
+  password String
+}
