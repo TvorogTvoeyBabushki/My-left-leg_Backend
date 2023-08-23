@@ -24,6 +24,18 @@ export const authAdmin = AsyncHandler(async (req, res) => {
 export const registerAdmin = AsyncHandler(async (req, res) => {
 	const { email, password } = req.body
 
+	const existingAdmin = await prisma.admin.findFirst({
+		where: {
+			id: 1
+		}
+	})
+
+	if (existingAdmin) {
+		res.status(403)
+
+		throw new Error('Admin already exists')
+	}
+
 	const admin = await prisma.admin.create({
 		data: {
 			email,
