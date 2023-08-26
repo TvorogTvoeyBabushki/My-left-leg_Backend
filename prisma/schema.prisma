@@ -19,7 +19,8 @@ model Post {
   description  String
   img          String[]
   categorysIds String[]
-  postContent  Json[]
+  postContent  Json[]   @default([])
+  countVisits  Int      @default(0)
 }
 
 model Admin {

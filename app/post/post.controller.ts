@@ -15,6 +15,7 @@ interface IPostRequest {
 		img: string
 		categorysIds: string[]
 		postContent: IPostContent[]
+		countVisits: string
 	}
 	params?: {
 		id: string
@@ -24,6 +25,7 @@ interface IPostRequest {
 export const getPost = AsyncHandler(
 	async (req: IPostRequest, res: Response) => {
 		const reqId = req.params.id
+
 		const post = await prisma.post.findUnique({
 			where: {
 				id: +reqId
@@ -60,8 +62,7 @@ export const createNewPost = AsyncHandler(
 				title,
 				description,
 				img,
-				categorysIds,
-				postContent: []
+				categorysIds
 			},
 			select: postFields // ???
 		})
@@ -71,7 +72,8 @@ export const createNewPost = AsyncHandler(
 )
 
 export const updatePost = AsyncHandler(async (req: Request, res: Response) => {
-	const { title, description, img, categorysIds, postContent } = req.body
+	const { title, description, img, categorysIds, postContent, countVisits } =
+		req.body
 	const postId = req.params.id
 
 	try {
@@ -84,7 +86,8 @@ export const updatePost = AsyncHandler(async (req: Request, res: Response) => {
 				description,
 				img,
 				categorysIds,
-				postContent
+				postContent,
+				countVisits
 			}
 		})
 
